@@ -1,0 +1,48 @@
+{% extends 'layout/basic.html' %}
+
+
+{% block title %}{{ current_category.category_name }}{% endblock %}
+{% block content %}
+<h2>Category:  {{current_category.category_name}}</h2>
+ 
+    <!-- {% for post in posts %} -->
+        <!-- <div> -->
+            <!-- <hr style="color: gold;"> -->
+            <!-- <h3>{{ post.title }}</h3> -->
+            <!-- <p>{{ post.content }}</p> -->
+            <!-- <p>Author: <a href="{% url 'by_author' post.author.pk %}">{{ post.author.username }}</a></p> -->
+            <!-- <p>Published: {{ post.published|date:'d.m.Y H.i.s' }}</p> -->
+        <!-- </div> -->
+    <!-- {% endfor %} -->
+
+    {% for post in page_obj %}
+    <div>
+        <hr style="color: gold;">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+        <p>Author: <a href="{% url 'by_author' post.author.pk %}">{{ post.author.username }}</a></p>
+        <p>Published: {{ post.published|date:'d.m.Y H.i.s' }}</p>
+    </div>
+
+    {% endfor %}
+
+
+    <div class="pagination" style="text-align: center;">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock %}

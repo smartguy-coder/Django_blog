@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Main page{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" type='text/css' href="{% static 'bboard/style.css' %}">
+</head>
+<body style="margin: 20px;">
+    {% block mainmenu %}
+	<div class="header" style='text-align: right;'>
+		<ul id="mainmenu" class="mainmenu">
+			{% if request.user.is_authenticated %}
+            <p> {{user.username}} | <a href="{% url 'logout' %}">Logout</a></p>
+            <p><a href="{% url 'by_author' user.pk %}">all my posts here</a></p>
+			{% else %}
+			<p><a href="{% url 'registration' %}">Registration</a> | <a href="{% url 'login' %}">Login</a></p>
+			{% endif %}
+		</ul>
+		
+	</div>
+ {% endblock mainmenu %}
+    <header>
+        <h1>posts</h1>
+    </header>
+   
+
+    <nav style="border-right: solid 1px gold; padding: 10px; width: auto; height: 750px;">
+        <a href="{% url 'index' %}">Main page</a>   
+        <a href="{% url 'add' %}">Add new post</a>
+        <a href="{% url 'add_category' %}">Add new category</a>
+        <br>
+        <h3>Categories:</h3>
+        
+        {% for category in categories %}
+            <a href="{% url 'by_category' category.pk %}">{{ category.category_name }}</a>
+        {% endfor %}
+
+
+    </nav>
+
+    <section style="padding: 50px; margin-left: 200px;">
+        {% block content %}
+
+        {% endblock %}
+    </section>
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+</body>
+</html>

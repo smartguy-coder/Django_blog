@@ -1,0 +1,18 @@
+{% extends 'layout/basic.html' %}
+
+
+{% block title %}Adding new category{% endblock %}
+{% block content %}
+
+    <h1>Adding new post</h1>
+                    
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+              
+        <input type="submit" value="Add">
+    </form>
+    
+
+    {% endblock %}
